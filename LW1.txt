@@ -1,0 +1,50 @@
+#include <iostream>
+#include <ctime>
+#include <cmath>
+
+using namespace std;
+
+double QuadraticMean(int (&arr),int arraySize) {
+    int *parr = &arr;
+    double a = 0;
+    for (int i = 0; i < arraySize; i++) {
+        a += pow(*(parr+i),2);
+    }
+    a /= arraySize;
+    double b = sqrt(a);
+    return b;
+}
+
+double ArithmeticMean(int (&arr), int arraySize) {
+    int* parr = &arr;
+    double a = 0;
+    for (int i = 0; i < arraySize; i++) {
+        a += *(parr + i);
+    }
+    a /= arraySize;
+    return a;
+}
+
+double ArithmeticMean(int(&arr), int arraySize) {
+    int* parr = &arr;
+    double a = 0;
+    for (int i = 0; i < arraySize; i++) {
+        a += *(parr + i);
+    }
+    a /= arraySize;
+    return a;
+}
+
+void main()
+{
+    srand(time(NULL));
+    setlocale(LC_ALL, "Russian");
+    int arraySize = 70;
+    int *arr = new int[arraySize];
+    for (int i = 0;i < arraySize;i++) {
+        arr[i] = 50+ rand()%70;
+    }
+    cout << QuadraticMean(*arr, arraySize) << endl;
+    cout << ArithmeticMean(*arr, arraySize) << endl;
+    delete[] arr;
+}
