@@ -1,0 +1,42 @@
+#include <iostream>
+#include <ctime>
+#include <cmath>
+
+using namespace std;
+
+bool IsPrimeNum(int(& arr), int a) {
+    bool isPrime = true;
+    for (int i = 2; i < a;i++) {
+        if(isPrime==true) {
+            if (a % i == 0) {
+                isPrime = false;
+            }
+            else {
+                isPrime = true;
+            }
+        }
+        else {
+            break;
+        }
+    }
+    if (isPrime == true) {
+        cout << a << " - это простое число" << endl;
+    }
+    if (isPrime == false) {
+        cout << a << " - это не простое число" << endl;
+    }
+    return isPrime;
+}
+
+void main()
+{
+    srand(time(NULL));
+    setlocale(LC_ALL, "Russian");
+    int a;
+    cin >> a;
+    int *arr = new int[a];
+    for (int i = 1; i < a;i++) {
+        arr[i] = i;
+    }
+    cout << IsPrimeNum(*arr,a) << endl;
+}
