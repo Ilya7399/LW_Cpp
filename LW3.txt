@@ -1,0 +1,102 @@
+#include <iostream>
+#include <ctime>
+#include <cmath>
+#include <valarray>
+
+using namespace std;
+
+double QuadraticMean(int(&arr), int arraySize) {
+    int* parr = &arr;
+    double a = 0;
+    for (int i = 0; i < arraySize; i++) {
+        a += pow(*(parr + i), 2);
+    }
+    a /= arraySize;
+    double b = sqrt(a);
+    return b;
+}
+
+double ArithmeticMean(int(&arr), int arraySize) {
+    int* parr = &arr;
+    double a = 0;
+    for (int i = 0; i < arraySize; i++) {
+        a += *(parr + i);
+    }
+    a /= arraySize;
+    return a;
+}
+
+double GeometricMean(int(&arr), int arraySize) {
+    int* parr = &arr;
+    double b = 1;
+    for (int i = 0; i < arraySize; i++) {
+        b *= *(parr + i);
+    }
+    double a = pow(b, 1.0 / arraySize);
+    return a;
+}
+
+double HarmonicMean(int(&arr), int arraySize) {
+    int* parr = &arr;
+    double b = 0;
+    for (int i = 0; i < arraySize; i++) {
+        b += 1.0 / (*(parr + i));
+    }
+    double a = arraySize / b;
+    return a;
+}
+
+void Fac(double a) {
+    double c = a;
+    double b = 1;
+    while (a > 1) {
+        b *= a;
+        a--;
+    }
+    cout<<fixed<< "\nФакториал числа " << c << " равен "<< b << endl<<"\n";
+}
+
+void Fib(double b) {
+    double first = 1;
+    double second = 1;
+    double sum = 0;
+    double j = 2;
+    if (b == 1) {
+        cout << fixed << "\nПод номером " << b << " в ряде чисел Фибоначчи стоит " << 0 << endl;
+    }
+    else if ((b == 2) || (b == 3)) {
+        cout << fixed << "\nПод номером " << b << " в ряде чисел Фибоначчи стоит " << 1 << endl;
+    }
+    else {
+        while (j <= b - 1)
+        {
+            sum = first + second;
+            first = second;
+            second = sum;
+            j++;
+        }
+        cout << fixed << "\nПод номером " << b << " в ряде чисел Фибоначчи стоит " << first << endl;
+    }
+}
+
+void main()
+{
+	srand(time(NULL));
+	setlocale(LC_ALL, "Russian");
+    int arraySize = 100;
+    int* arr = new int[arraySize];
+    for (int i = 0;i < arraySize;i++) {
+        arr[i] = 1 + rand() % 100;
+    }
+    cout << "Среднее квадратическое случайных чисел диапазона от 1 до 100: " << QuadraticMean(*arr, arraySize) << endl;
+    cout << "\n" << "Среднее арифметическое случайных чисел диапазона от 1 до 100: " << ArithmeticMean(*arr, arraySize) << endl;
+    cout << "\n" << "Среднее геометрическое случайных чисел диапазона от 1 до 100: " << GeometricMean(*arr, arraySize) << endl;
+    cout << "\n" << "Среднее гармоническое случайных чисел диапазона от 1 до 100: " << HarmonicMean(*arr, arraySize) << endl<<"\n";
+    double a;
+    cin >> a;
+    Fac(a);
+    double b;
+    cin >> b;
+    Fib(b);
+    delete[] arr;
+}
