@@ -54,9 +54,9 @@ void main()
     for (int i = 0;i < arraySize;i++) {
         arr[i] = 50+ rand()%70;
     }
-    cout << QuadraticMean(*arr, arraySize) << endl;
-    cout << ArithmeticMean(*arr, arraySize) << endl;
-    cout << GeometricMean(*arr, arraySize) << endl;
-    cout << HarmonicMean(*arr, arraySize) << endl;
+    cout<<"Среднее квадратическое случайных чисел диапазона от 50 до 120: " << QuadraticMean(*arr, arraySize) << endl;
+    cout << "\n" << "Среднее арифметическое случайных чисел диапазона от 50 до 120: " << ArithmeticMean(*arr, arraySize) << endl;
+    cout << "\n" << "Среднее геометрическое случайных чисел диапазона от 50 до 120: " << GeometricMean(*arr, arraySize) << endl;
+    cout << "\n" << "Среднее гармоническое случайных чисел диапазона от 50 до 120: " << HarmonicMean(*arr, arraySize) << endl;
     delete[] arr;
 }
