@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+#include <chrono>
 
 using namespace std;
 
@@ -93,6 +94,20 @@ void Swap() {
     } while (!EndFlag);
 }
 
+double InitTimer() {
+    clock_t start = clock();
+    cout << "\n" << "\n" <<"Начало отсчета сортировки " << start;
+    return start;
+}
+
+double GetTimer(double start) {
+    clock_t end = clock();
+    cout << "\n" << "\n" << "Конец " << start;
+    double dif = end - start;
+    cout << "\n" << "\n" << "Затраченное время " << dif;
+    return dif;
+}
+
 void main() {
     setlocale(LC_ALL, "Russian");
     int a;
@@ -101,6 +116,7 @@ void main() {
     initarray(a,arr);
     long UBound = Size;
     bool EndFlag;
+    double start = InitTimer();
     if (a == 1) {
         Swap();
     }
@@ -122,7 +138,7 @@ void main() {
     else if (a == 4) {
         Swap();
     }
-    cout << "\n" << "\n";
+    cout << "\n" << "\n"<<GetTimer(start);
     for (int i = 0;i <= Size;i++) {
         cout << BaseArray[i] << " ";
     }
