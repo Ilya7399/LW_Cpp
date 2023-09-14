@@ -24,12 +24,12 @@ double ArithmeticMean(int *arr, int arraySize) {
     return a;
 }
 
-double GeometricMean(int *arr, int arraySize) {
-    double a= 1;
+double GeometricMean(int* arr, int arraySize) {
+    double a = 1;
     for (int i = 0; i < arraySize; i++) {
-        a *= arr[i];
+        a += log(arr[i]);
     }
-    a = pow(a, 1.0 / arraySize);
+    a = exp(a/ arraySize);
     return a;
 }
 
