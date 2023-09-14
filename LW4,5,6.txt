@@ -22,6 +22,10 @@ void Exchange(int i, int j) {
     swap(BaseArray[i],BaseArray[j]);
 }
 
+void ChoiseExchange(int i, int j) {
+    swap(BaseArray[i], BaseArray[j]);
+}
+
 bool Check(int *BaseArray) {
     bool swapped = true;
         for (int i = 0; i < Size; i++) {
@@ -36,13 +40,19 @@ bool Check(int *BaseArray) {
                 break;
             }
         }
+        if (swapped) {
+            cout <<"\n\nМассив отсортирован корректно" << endl;
+        }
+        else {
+            cout << "\n\nМассив отсортирован некорректно" << endl;
+        }
         return swapped;
 }
 
 void initarray(int t,int *arr) { //заполнение массива
     srand(time(NULL));
     for (int i = 0;i <= Size;i++) {
-        arr[i] = i+1;
+        arr[i] = 1+rand()%20;
     }
     switch (t) {
     case 1: // упорядоченные
@@ -94,6 +104,22 @@ void Swap() {
     } while (!EndFlag);
 }
 
+void ChoiseSwap() {
+    long LBound = 0, MaxElem, MaxIndex;
+    do {
+        MaxElem = BaseArray[LBound];
+        MaxIndex = LBound;
+        for (int i = LBound + 1; i < Size; i++)
+            if (MaxElem < BaseArray[i]) {
+                MaxElem = BaseArray[i];
+                MaxIndex = i;
+            }
+        if (MaxIndex != LBound)
+            ChoiseExchange(LBound, MaxIndex);
+        LBound++;
+    } while (LBound != Size - 1);
+}
+
 double InitTimer() {
     clock_t start = clock();
     cout << "\n" << "\n" <<"Начало отсчета сортировки " << start;
@@ -108,12 +134,11 @@ double GetTimer(double start) {
     return dif;
 }
 
-void main() {
-    setlocale(LC_ALL, "Russian");
+void FillingArr() {
     int a;
     cin >> a;
     int* arr = new int[Size];
-    initarray(a,arr);
+    initarray(a, arr);
     long UBound = Size;
     bool EndFlag;
     double start = InitTimer();
@@ -138,9 +163,30 @@ void main() {
     else if (a == 4) {
         Swap();
     }
-    cout << "\n" << "\n"<<GetTimer(start);
+    cout << "\n" << "\n";
+    for (int i = 0;i <= Size;i++) {
+        cout  << BaseArray[i] << " ";
+    }
+    cout << "\n" << "\n" << GetTimer(start);
+    cout << "\n" << "\n" << Check(BaseArray);
+}
+
+void main() {
+    setlocale(LC_ALL, "Russian");
+    FillingArr();
+    cout << "\n\nПерезаполнение массива случайными числами: ";
+    for (int i = 0;i <= Size;i++) {
+        BaseArray[i] = 1+rand()%20;
+    }
     for (int i = 0;i <= Size;i++) {
         cout << BaseArray[i] << " ";
     }
-    cout<<"\n" <<"\n" << Check(BaseArray);
+    double start = InitTimer();
+    ChoiseSwap();
+    cout << "\n" << "\n";
+    for (int i = 0;i <= Size;i++) {
+        cout << BaseArray[i] << " ";
+    }
+    cout << "\n" << "\n" << GetTimer(start);
+    cout << "\n"<< Check(BaseArray);
 }
