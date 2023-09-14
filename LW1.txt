@@ -4,44 +4,40 @@
 
 using namespace std;
 
-double QuadraticMean(int (&arr),int arraySize) {
-    int *parr = &arr;
+double QuadraticMean(int* arr, int arraySize) {
     double a = 0;
     for (int i = 0; i < arraySize; i++) {
-        a += pow(*(parr+i),2);
+        a += pow(arr[i], 2);
     }
     a /= arraySize;
-    double b = sqrt(a);
-    return b;
+    a = sqrt(a);
+    return a;
 }
 
-double ArithmeticMean(int (&arr), int arraySize) {
-    int* parr = &arr;
+double ArithmeticMean(int* arr, int arraySize) {
     double a = 0;
     for (int i = 0; i < arraySize; i++) {
-        a += *(parr + i);
+        a += arr[i];
     }
     a /= arraySize;
     return a;
 }
 
-double GeometricMean(int(&arr), int arraySize) {
-    int* parr = &arr;
-    double b = 1;
+double GeometricMean(int* arr, int arraySize) {
+    double a = 1;
     for (int i = 0; i < arraySize; i++) {
-        b *= *(parr + i);
+        a += log(arr[i]);
     }
-    double a = pow(b, 1.0/arraySize);
+    a = exp(a/ arraySize);
     return a;
 }
 
-double HarmonicMean(int(&arr), int arraySize) {
-    int* parr = &arr;
-    double b = 0;
+double HarmonicMean(int* arr, int arraySize) {
+    double a = 0;
     for (int i = 0; i < arraySize; i++) {
-        b += 1.0/(*(parr + i));
+        a += 1.0 / arr[i];
     }
-    double a = arraySize/b;
+    a = arraySize / a;
     return a;
 }
 
@@ -49,14 +45,14 @@ void main()
 {
     srand(time(NULL));
     setlocale(LC_ALL, "Russian");
-    int arraySize = 70;
+    int arraySize = 1000;
     int *arr = new int[arraySize];
     for (int i = 0;i < arraySize;i++) {
-        arr[i] = 50+ rand()%70;
+        arr[i] = i+1;
     }
-    cout<<"Среднее квадратическое случайных чисел диапазона от 50 до 120: " << QuadraticMean(*arr, arraySize) << endl;
-    cout << "\n" << "Среднее арифметическое случайных чисел диапазона от 50 до 120: " << ArithmeticMean(*arr, arraySize) << endl;
-    cout << "\n" << "Среднее геометрическое случайных чисел диапазона от 50 до 120: " << GeometricMean(*arr, arraySize) << endl;
-    cout << "\n" << "Среднее гармоническое случайных чисел диапазона от 50 до 120: " << HarmonicMean(*arr, arraySize) << endl;
+    cout<<"Среднее квадратическое натуральных чисел от 1 до 1000: " << QuadraticMean(arr, arraySize) << endl;
+    cout << "\n" << "Среднее арифметическое натуральных чисел от 1 до 1000: " << ArithmeticMean(arr, arraySize) << endl;
+    cout << "\n" << "Среднее геометрическое натуральных чисел от 1 до 1000: " << GeometricMean(arr, arraySize) << endl;
+    cout << "\n" << "Среднее гармоническое натуральных чисел от 1 до 1000: " << HarmonicMean(arr, arraySize) << endl;
     delete[] arr;
 }
