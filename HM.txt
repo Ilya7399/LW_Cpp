@@ -1,0 +1,176 @@
+#include <iostream>
+
+using namespace std;
+
+double QuadraticMean(int* arr, int arraySize) {
+    double a = 0;
+    for (int i = 0; i < arraySize; i++) {
+        a += pow(arr[i], 2);
+    }
+    a /= arraySize;
+    a = sqrt(a);
+    return a;
+}
+
+double ArithmeticMean(int* arr, int arraySize) {
+    double a = 0;
+    for (int i = 0; i < arraySize; i++) {
+        a += arr[i];
+    }
+    a /= arraySize;
+    return a;
+}
+
+double GeometricMean(int* arr, int arraySize) {
+    double a = 1;
+    cout << "\n\nНахождение среднего геометрического реализовано через функцию логарифма, которая не может совершать операции с отрицательными числами. Отрицательные числа будут браться по модулю\n\n";
+    for (int i = 0; i < arraySize; i++) {
+        a += log(abs(arr[i]));
+    }
+    a = exp(a / arraySize);
+    return a;
+}
+
+double HarmonicMean(int* arr, int arraySize) {
+    double a = 0;
+    for (int i = 0; i < arraySize; i++) {
+        a += 1.0 / arr[i];
+    }
+    a = arraySize / a;
+    return a;
+}
+
+void Mean(int *arr,int n) {
+    cout << "\n" << "Среднее квадратическое: " << QuadraticMean(arr, n) << endl;
+    cout << "\n" << "Среднее арифметическое: " << ArithmeticMean(arr, n) << endl;
+    cout << "\n" << "Среднее геометрическое: " << GeometricMean(arr, n) << endl;
+    cout << "\n" << "Среднее гармоническое: " << HarmonicMean(arr, n) << endl;
+}
+
+void PrintArray(int* arrA, int*arrB, int *arrC,  int n, int m,int choise) {
+    cout << "\n\nМассив А:\n\n";
+    cout << "Элемент массива и его порядковый номер :\n\n";
+    cout << "Эл:" << "\tПор.ном.:\n\n";
+    for (int i = 0;i < n; i++) {
+        if (choise==1?(arrA[i] < m): (arrA[i]>m)) {
+            cout << arrA[i] << "\t";
+            cout << i << "\n";
+        }
+    }
+    cout << "\n\nМассив B:\n\n";
+    cout << "Эл:" << "\tПор.ном.:\n\n";
+    for (int i = 0;i < n; i++) {
+        if (choise == 1 ? (arrB[i] < m) : (arrB[i] > m)) {
+            cout << arrB[i] << "\t";
+            cout << i << "\n";
+        }
+    }
+    cout << "\n\nМассив C:\n\n";
+    cout << "Эл:" << "\tПор.ном.:\n\n";
+    for (int i = 0;i < n; i++) {
+        if (choise == 1 ? (arrC[i] < m) : (arrC[i] > m)) {
+            cout << arrC[i] << "\t";
+            cout << i << "\n";
+        }
+    }
+}
+
+void main()
+{
+    srand(time(NULL));
+    setlocale(LC_ALL, "Russian");
+    cout << "Введите колво элементов в массиве: ";
+    int n;
+    cin >> n;
+    int* arrA = new int[n];
+    int* arrB = new int[n];
+    int* arrC = new int[n];
+    for (int i = 0;i < n;i++) {
+        arrA[i] = -50 + rand() % 100;
+        arrB[i] = -50 + rand()%100;
+        arrC[i] = arrA[i] + arrB[i];
+    }
+    cout << "\n\nЧто программа должна вывести на экран: 1 - вывод массива A, 2 - массива B, 3 - C ";
+    int choise;
+    cin >> choise;
+    switch (choise) {
+    case 1:
+        cout << "\n\nМассив А:\n\n";
+        for (int i = 0;i < n;i++) {
+            cout << arrA[i] << "\n";
+        }
+        break;
+    case 2:
+        cout << "\n\nМассив B:\n\n";
+        for (int i = 0;i < n;i++) {
+            cout << arrB[i] << "\n";
+        }
+        break;
+    case 3:
+        cout << "\n\nМассив C:\n\n";
+        for (int i = 0;i < n;i++) {
+            cout << arrC[i] << "\n";
+        }
+        break;
+    default :
+        cout << "\n\nМассивы:\n\n";
+        cout << "A:" << "\tB:" << "\tC:\n\n";
+        for (int i = 0;i < n;i++) {
+            cout << arrA[i] << "\t";
+            cout << arrB[i] << "\t";
+            cout << arrC[i] << "\n";
+        }
+        break;
+    }
+    cout << "\n\nДля какого / каких массивов вывести средние значения их элементов: 1 - для массива А, 2 - В, 3 - С, 4 - для всех ";
+    cin >> choise;
+    switch (choise) {
+    case 1:
+        cout << "\n\nСредние значения для массива А:\n\n";
+        Mean(arrA,n);
+        break;
+    case 2:
+        cout << "\n\nСредние значения для массива B:\n\n";
+        Mean(arrB, n);
+        break;
+    case 3:
+        cout << "\n\nСредние значения для массива C:\n\n";
+        Mean(arrC, n);
+        break;
+    case 4:
+        cout << "\n\nСредние значения для массива А:\n\n";
+        Mean(arrA, n);
+        cout << "\n\n--------------------------------\n\n";
+        cout << "\n\nСредние значения для массива B:\n\n";
+        Mean(arrB, n);
+        cout << "\n\n--------------------------------\n\n";
+        cout << "\n\nСредние значения для массива C:\n\n";
+        Mean(arrC, n);
+        break;
+default:
+    cout << "\n\nСредние значения для массива А:\n\n";
+    Mean(arrA, n);
+    cout << "\n\n--------------------------------\n\n";
+    cout << "\n\nСредние значения для массива B:\n\n";
+    Mean(arrB, n);
+    cout << "\n\n--------------------------------\n\n";
+    cout << "\n\nСредние значения для массива C:\n\n";
+    Mean(arrC, n);
+    break;
+    }
+    cout << "\n\nВведите число в диапазоне от -50 до 50: ";
+    int m;
+    cin >> m;
+    cout << "\n\nМеньше или больше этого числа вывести все элементы каждого массива и их порядковые номера: 1 - меньше, 2 - больше: ";
+    cin >> choise;
+    if (choise==1) {
+        PrintArray(arrA,arrB,arrC,n,m,choise);
+    }
+    else if (choise == 2) {
+        PrintArray(arrA, arrB, arrC, n, m,choise);
+    }
+    else {
+        PrintArray(arrA, arrB, arrC, n, m,choise);
+    }
+}
+
