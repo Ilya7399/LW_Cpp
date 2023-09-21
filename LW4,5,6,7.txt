@@ -12,7 +12,7 @@ void Print(int* BaseArray) {
     for (int i = 0;i < Size;i++) {
         cout << BaseArray[i] << " ";
     }
-    cout << "\n" << "\n";
+    cout << "\n\n";
 }
 
 void Exchange(int i, int j) {
@@ -115,25 +115,30 @@ void ChoiseSwap() {
 
 double InitTimer() {
     clock_t start = clock();
-    cout << "\n" << "\n" << "Начало отсчета сортировки " << start;
+    cout << "\n\n"<< "Начало отсчета сортировки " << start;
     return start;
 }
 
 void GetTimer(double start) {
     clock_t end = clock();
-    cout << "\n" << "\n" << "Конец " << start;
+    cout << "\n\n"<< "Конец " << start;
     double dif = end - start;
     cout << "\n\n" << "Затраченное время " << dif;
 }
 
-void FillingArr() {
+void FillingArr(int *arr) {
     cout << "Заполнение массива: 1 - упордоченными числами, 2 - упорядоченными в обратном порядке, 3 - вырожденными, 4 - случайными" << endl;
     int a;
     cin >> a;
     Initarray(a);
+    cout << "\n\n" << "Вывод массива, соразмерного BaseArray:\n";
+    for (int i = 0;i <= Size;i++) {
+        cout << arr[i] << " ";
+    }
     long UBound = Size;
     bool EndFlag;
-    double start = InitTimer();
+    auto begin3 = chrono::steady_clock::now();
+    cout << "\n\nНачало отсчета сортировки";
     if (a == 1) {
         Swap();
     }
@@ -155,17 +160,23 @@ void FillingArr() {
     else if (a == 4) {
         Swap();
     }
-    cout << "\n" << "\n";
+    cout << "\n\n";
     for (int i = 0;i <= Size;i++) {
         cout << BaseArray[i] << " ";
     }
-    GetTimer(start);
-    cout << "\n" << "\n" << Check(BaseArray);
+    auto end3 = chrono::steady_clock::now();
+    auto elapsed_ms = chrono::duration_cast<chrono::nanoseconds>(end3 - begin3);
+    cout << "\n\nКонец сортировки, ее время: " << elapsed_ms.count();
+    cout << "\n\n"<< Check(BaseArray);
 }
 
 void main() {
     setlocale(LC_ALL, "Russian");
-    FillingArr();
+    int* arr = new int[Size];
+    for (int i = 0;i < Size;i++) {
+        arr[i] = 1 + rand() % 100;
+    }
+    FillingArr(arr);
     cout << "\n\nПерезаполнение массива случайными числами: ";
     for (int i = 0;i < Size;i++) {
         BaseArray[i] = 1 + rand() % 20;
@@ -173,12 +184,15 @@ void main() {
     for (int i = 0;i < Size;i++) {
         cout << BaseArray[i] << " ";
     }
-    double start = InitTimer();
+    auto begin3 = chrono::steady_clock::now();
+    cout << "\n\nНачало отсчета сортировки";
     ChoiseSwap();
-    cout << "\n" << "\n";
+    cout << "\n\n";
     for (int i = 0;i < Size;i++) {
         cout << BaseArray[i] << " ";
     }
-    GetTimer(start);
+    auto end3 = chrono::steady_clock::now();
+    auto elapsed_ms = chrono::duration_cast<chrono::nanoseconds>(end3 - begin3);
+    cout << "\n\nКонец сортировки, ее время: " << elapsed_ms.count();
     cout << "\n" << Check(BaseArray);
 }
